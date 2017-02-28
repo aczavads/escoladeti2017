@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+<head>
+</head>
+<script type="text/javascript">
+	
+
+	(function() {
+		var cidades = [];
+		var trechos = [];
+
+		function solicitarTrechos(cidade) {
+			for (var i = 0; i < cidades.length; i++) {
+				var distancia = prompt("Informe a distância entre " + cidade.nome + " e " + cidades[i].nome);
+				trechos.push(criarTrecho(cidades[i], cidade, parseInt(distancia)));
+			}
+		}
+
+		function criarCidade(nomeDaCidade) {
+			return { nome : nomeDaCidade };
+		}
+
+		function criarTrecho(cidadeA, cidadeB, distancia) {
+			return { pontoA : cidadeA, pontoB : cidadeB, distancia : distancia };
+		}
+
+		function solicitarDados() {
+			do {
+				var novaCidade = criarCidade((prompt("Informe a nova cidade")));
+				solicitarTrechos(novaCidade);
+				cidades.push(novaCidade);
+			} while (confirm("Deseja continuar?"));
+			console.log(JSON.stringify(cidades, null, 4));
+			console.log(JSON.stringify(trechos, null, 4));
+		}
+
+		solicitarDados();
+
+	})();
+
+
+</script>
+<body>
+</body>
+
+</html>
