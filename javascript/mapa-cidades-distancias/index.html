@@ -34,7 +34,46 @@
 			console.log(JSON.stringify(trechos, null, 4));
 		}
 
+		function imprimirDistanciaEntreCidades(){
+			primeiraCidade = solicitarCidade("Informe o nome da PRIMEIRA  cidade");
+			segundaCidade = solicitarCidade("Informe o nome da SEGUNDA cidade");
+
+			for (var i = 0; i < trechos.length; i++) {
+				trechoPrimeiraCidade = trechos[i].pontoA.nome === primeiraCidade || trechos[i].pontoB.nome === primeiraCidade;
+				trechoSegundaCidade = trechos[i].pontoA.nome === segundaCidade || trechos[i].pontoB.nome === segundaCidade;
+				if(trechoPrimeiraCidade && trechoSegundaCidade){
+					distancia = trechos[i].distancia;
+					alert('A distancia entre: ' + primeiraCidade + ' e ' + segundaCidade + ' é: ' + distancia);
+				}
+			}
+		}
+
+		function solicitarCidade(texto) {
+			do {
+				encontrou = false;
+				cidade = prompt(texto);
+				if(cidadeExiste(cidade)){
+					encontrou = true;
+				}else{
+					alert('Cidade não encontrada');
+				}
+			} while (!encontrou);
+			return cidade;
+		}
+
+		function cidadeExiste(nomeDaCidade){
+			for (var i = 0; i < cidades.length; i++) {
+				if(cidades[i].nome === nomeDaCidade){
+					return true;
+				}
+			}
+			return false;
+		}
+
 		solicitarDados();
+		imprimirDistanciaEntreCidades();
+
+
 
 	})();
 
