@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html>
+<head>
+</head>
+<script type="text/javascript">
+	
+
+	(function() {
+		var cidades = [];
+		var trechos = [];
+
+		function solicitarTrechos(cidade) {
+			for (var i = 0; i < cidades.length; i++) {
+				var distancia = prompt("Informe a distância entre " + cidade.nome + " e " + cidades[i].nome);
+				trechos.push(criarTrecho(cidades[i], cidade, parseInt(distancia)));
+			}
+		}
+
+		function criarCidade(nomeDaCidade) {
+			return { nome : nomeDaCidade };
+		}
+
+		function criarTrecho(cidadeA, cidadeB, distancia) {
+			return { pontoA : cidadeA, pontoB : cidadeB, distancia : distancia };
+		}
+
+		function solicitarDados() {
+			do {
+				var novaCidade = criarCidade((prompt("Informe a nova cidade")));
+				solicitarTrechos(novaCidade);
+				cidades.push(novaCidade);
+			} while (confirm("Deseja continuar?"));
+			console.log(JSON.stringify(cidades, null, 4));
+			console.log(JSON.stringify(trechos, null, 4));
+		}
+
+		function imprimirDistanciaEntreCidades(){
+			primeiraCidade = solicitarCidade("Informe o nome da PRIMEIRA  cidade");
+			segundaCidade = solicitarCidade("Informe o nome da SEGUNDA cidade");
+
+			for (var i = 0; i < trechos.length; i++) {
+				trechoPrimeiraCidade = trechos[i].pontoA.nome === primeiraCidade || trechos[i].pontoB.nome === primeiraCidade;
+				trechoSegundaCidade = trechos[i].pontoA.nome === segundaCidade || trechos[i].pontoB.nome === segundaCidade;
+				if(trechoPrimeiraCidade && trechoSegundaCidade){
+					distancia = trechos[i].distancia;
+					alert('A distancia entre: ' + primeiraCidade + ' e ' + segundaCidade + ' é: ' + distancia);
+				}
+			}
+		}
+
+		function solicitarCidade(texto) {
+			do {
+				encontrou = false;
+				cidade = prompt(texto);
+				if(cidadeExiste(cidade)){
+					encontrou = true;
+				}else{
+					alert('Cidade não encontrada');
+				}
+			} while (!encontrou);
+			return cidade;
+		}
+
+		function cidadeExiste(nomeDaCidade){
+			for (var i = 0; i < cidades.length; i++) {
+				if(cidades[i].nome === nomeDaCidade){
+					return true;
+				}
+			}
+			return false;
+		}
+
+		solicitarDados();
+		imprimirDistanciaEntreCidades();
+
+
+
+	})();
+
+
+</script>
+<body>
+</body>
+
+</html>
